@@ -1,0 +1,113 @@
+## --- Core .NET build artifacts ---
+bin/
+obj/
+out/
+[Bb]uild/
+[Aa]rtifacts/
+
+## --- Visual Studio / solution cruft ---
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vc.db
+*.dbmdl
+
+## --- Rider/ReSharper (if present) ---
+.idea/
+.ReSharper*/
+*_ReSharper.*
+*.DotSettings.user
+
+## --- VS Code (comment these out if you prefer committing them) ---
+.vscode/
+
+## --- NuGet ---
+packages/
+*.nupkg
+*.snupkg
+.nuget/NuGet.Config
+.nuget/packages/
+project.lock.json
+artifacts/
+
+## --- Logs & temps ---
+*.log
+logs/
+[Tt]emp/
+*.tmp
+*.bak
+*.orig
+*.rej
+
+## --- ASP.NET Core config ---
+# Keep base appsettings.json in source control
+!appsettings.json
+# Ignore machine- or developer-specific variants
+appsettings.*.Development.json
+appsettings.*.Local.json
+appsettings.Local.json
+
+# Azure Functions (if any)
+local.settings.json
+
+## --- Entity Framework Core ---
+# Keep migrations; they’re source code
+!**/Migrations/**
+# Design-time snapshots are part of migrations; keep them by default
+!**/Migrations/*ModelSnapshot.cs
+
+## --- Databases (local/dev) ---
+*.mdf
+*.ldf
+*.ndf
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+
+## --- Publish / deployment ---
+# VS publish profiles often contain env-specific details
+**/Properties/PublishProfiles/*.pubxml
+**/Properties/PublishProfiles/*.pubxml.user
+*.PublishSettings
+# Local publish output
+publish/
+.publish/
+
+## --- Test & coverage artifacts ---
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+.coverage/
+.coverlet/
+coverage/
+
+## --- Front-end (if you have a SPA/JS tooling alongside the API) ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+wwwroot/dist/
+ClientApp/node_modules/
+ClientApp/build/
+
+## --- Docker / containers ---
+# Compose overrides are often local-only
+# (Uncomment if you do *not* want overrides committed)
+# docker-compose.override.yml
+.env
+
+## --- Documentation sites (DocFX, etc.) ---
+docfx/_site/
+docfx/api/
+
+## --- Misc tools ---
+*.DS_Store
+Thumbs.db
