@@ -13,6 +13,8 @@ dist-ssr
 *.local
 
 .env
+sonar-project.properties
+.scannerwork
 
 # Editor directories and files
 .vscode/*
