@@ -1,3 +1,10 @@
+/*
+ * FILE : Program.cs
+ * PROJECT : SENG3020 - Flight Data Management System
+ * PROGRAMMER : Nicholas Aguilar
+ * FIRST VERSION : 2025-11-22
+ * DESCRIPTION : Main program file for the Ground terminal station application.
+ */
 using FDMS_GroundStation_API.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,9 +25,11 @@ builder.Services.AddDbContext<GtsDbContext>(options =>
 
 var app = builder.Build();
 
+// Initialize the database
+DbInitializer.Initialize(app.Services);
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+if(app.Environment.IsDevelopment()) {
     app.MapOpenApi();
 }
 
