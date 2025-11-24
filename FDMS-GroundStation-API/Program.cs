@@ -6,6 +6,8 @@
  * DESCRIPTION : Main program file for the Ground terminal station application.
  */
 using FDMS_GroundStation_API.Data;
+using FDMS_GroundStation_API.Services.Abstract;
+using FDMS_GroundStation_API.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<GtsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<IAircraftDataService, AircraftDataService>();
 
 var app = builder.Build();
 
