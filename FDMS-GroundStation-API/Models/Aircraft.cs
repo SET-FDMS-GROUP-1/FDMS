@@ -13,10 +13,11 @@ namespace FDMS_GroundStation_API.Models {
      * PURPOSE : The AssemblyEvent class models an aircraft identified by a unique string ID.
      */
     public class Aircraft {
+        [Required]
         [Key]
         [StringLength(15)]
-        public string Id { get; set; }
-        public ICollection<GForceData> GForceData { get; set; }
-        public ICollection<AltitudeData> AltitudeData { get; set; }
+        public required string Id { get; init; }
+        public ICollection<GForceData>? GForceData { get; set; }
+        public ICollection<AltitudeData>? AltitudeData { get; set; }
     }
 }

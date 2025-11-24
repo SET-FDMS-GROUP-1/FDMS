@@ -16,8 +16,10 @@ namespace FDMS_GroundStation_API.Models {
         [Key]
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string RawData { get; set; }
+        [Required]
+        public required string RawData { get; set; }
+        [Required]
         [StringLength(255)]
-        public string ErrorMessage { get; set; }
+        public required string ErrorMessage { get; set; }
     }
 }

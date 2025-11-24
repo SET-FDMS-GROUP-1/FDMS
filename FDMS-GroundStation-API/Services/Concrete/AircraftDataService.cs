@@ -16,7 +16,7 @@ namespace FDMS_GroundStation_API.Services.Concrete {
      * PURPOSE : Business logic for managing aircraft data.
      */
     public class AircraftDataService : IAircraftDataService {
-        GtsDbContext _context;
+        private readonly GtsDbContext _context;
         /*
          *	FUNCTION : AircraftDataService -- Constructor
          *	DESCRIPTION	: Constructor that initializes the AircraftDataService class with required services
