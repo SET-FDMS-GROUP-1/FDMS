@@ -19,9 +19,10 @@ namespace FDMS_GroundStation_API.Models {
         public double Altitude { get; set; }
         public double Pitch { get; set; }
         public double Bank { get; set; }
+
         [Required]
         [StringLength(15)]
-        public string AircraftId { get; set; }
-        public Aircraft Aircraft { get; set; }
+        public required string AircraftId { get; set; }
+        public required Aircraft? Aircraft { get; set; }
     }
 }

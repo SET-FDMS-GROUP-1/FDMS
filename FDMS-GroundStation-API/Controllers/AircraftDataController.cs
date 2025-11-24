@@ -16,7 +16,7 @@ namespace FDMS_GroundStation_API.Controllers {
      */
     [ApiController]
     [Route("[controller]")]
-    public class AircraftDataController : Controller {
+    public class AircraftDataController : ControllerBase {
         private readonly IAircraftDataService _aircraftDataService;
         private readonly ILogger<AircraftDataController> _logger;
         /*

@@ -6,14 +6,12 @@
  * DESCRIPTION : Initializes the database ensuring its creation.
  */
 
-using FDMS_GroundStation_API.Models;
-
 namespace FDMS_GroundStation_API.Data {
     /*
      * NAME : DatabaseInitializer
      * PURPOSE : Database initialization and seeding with default data.
      */
-    public class DbInitializer {
+    public static class DbInitializer {
         /*
          *	FUNCTION : Initialize
          *	DESCRIPTION	: Initializes the database and seeds it with default data if necessary.
@@ -23,8 +21,11 @@ namespace FDMS_GroundStation_API.Data {
          */
         public static void Initialize(IServiceProvider serviceProvider) {
             using(IServiceScope scope = serviceProvider.CreateScope()) {
-                var services = scope.ServiceProvider;
-                var logger = services.GetRequiredService<ILogger<DbInitializer>>();
+                IServiceProvider services = scope.ServiceProvider;
+
+                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+                ILogger logger = loggerFactory.CreateLogger(nameof(DbInitializer));
+
                 var context = scope.ServiceProvider.GetRequiredService<GtsDbContext>();
 
                 try {

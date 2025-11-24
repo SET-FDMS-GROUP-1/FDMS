@@ -16,14 +16,14 @@ namespace FDMS_GroundStation_API.Models {
         [Key]
         public long Id { get; set; }
         public DateTime CreatedDate { get; set; }
-        public double accelX { get; set; }
-        public double accelY { get; set; }
-        public double accelZ { get; set; }
+        public double AccelX { get; set; }
+        public double AccelY { get; set; }
+        public double AccelZ { get; set; }
         public decimal Weight { get; set; }
 
         [Required]
         [StringLength(15)]
-        public string AircraftId { get; set; }
-        public Aircraft Aircraft { get; set; }
+        public required string AircraftId { get; set; }
+        public Aircraft? Aircraft { get; set; }
     }
 }
