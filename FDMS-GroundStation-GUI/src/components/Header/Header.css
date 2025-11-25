@@ -1,0 +1,11 @@
+/*
+* NAME          : src/components/Header/Header.css
+* PROJECT       : SENG3020 - Flight Data Management System
+* PROGRAMMER    : Alex Simko
+* FIRST VERSION : 2025-11-24
+* DESCRIPTION   : Styles for the header component.
+*/
+
+.bg-header {
+    background-color: #ecf0f1;
+}
