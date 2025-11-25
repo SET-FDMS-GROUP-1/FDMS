@@ -8,6 +8,9 @@ ATS uses UV for pakage management. To install UV on your windows machine, run th
 Running the ATS
 =================================
 
+First, create a '.env' file in the 'FDMS-ATS' directory with the appropriate environment valriables (see '.sample.env' file for required values).
+
+
 To run the ATS, navigate to the 'FDMS-ATS' directory and enter the command:
 
 ``` uv run main.py ```
