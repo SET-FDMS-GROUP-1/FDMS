@@ -25,6 +25,9 @@ def test_TelemetryFileReader_generate_telemetry_data_no_line_input():
     assert data
     assert tdf.line == 1
 
+def test_TelemetryFileReader_generate_telemetry_data_input_file_does_not_exist():
+    pass
+
 def test_TelemetryFileReader_generate_telemetry_data_no_line_input_line_property_greater_than_num_lines_in_file():
     with pytest.raises(Exception) as e:
         filepath = TELEMETRY_FILEPATH
