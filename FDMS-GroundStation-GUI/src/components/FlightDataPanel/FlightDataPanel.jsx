@@ -19,13 +19,13 @@ const FlightDataPanel = ({ searchResultCount = 0, maxHeight = '450px' }) => {
     const { isRealTime, telemetryData } = useGlobalContext();
 
     return (
-        <div className="card border border-5 app-border shadow-sm m-4 bg-panel-secondary">
+        <div className="card border border-5 app-border shadow-sm bg-panel-secondary h-100 d-flex flex-column">
             <div className="card-header text-center fw-bold fs-4 border-0 bg-panel-secondary pb-0">
                 {isRealTime ? 'Live Telemetry Data' : `Search Results (${searchResultCount} records found)`}
             </div>
-            <div className="card-body p-3 bg-panel-primary m-3">
-                <div className="table-responsive overflow-y-auto" style={{ maxHeight: maxHeight}}>
-                    <table className="table table-sm table-bordered table-hover mb-0 cell-row-colour overflow-auto">
+            <div className="card-body p-3 bg-panel-primary m-3 flex-fill d-flex flex-column overflow-hidden">
+                <div className="flex-fill overflow-auto position-relative cell-row-colour">
+                    <table className="table table-sm table-bordered table-hover mb-0 cell-row-colour">
                         <ListHeader 
                         />
                         <tbody>

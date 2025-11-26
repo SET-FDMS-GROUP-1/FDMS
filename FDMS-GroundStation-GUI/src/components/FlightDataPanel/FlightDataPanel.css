@@ -9,6 +9,10 @@
     --table-bg: #E8E8E8;
 }
 
+.cell-row-colour {
+    background-color: var(--table-bg) !important;
+}
+
 .cell-row-colour td,
 .cell-row-colour th {
     background-color: var(--table-bg) !important;
