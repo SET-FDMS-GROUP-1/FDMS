@@ -11,6 +11,7 @@ import { GlobalProvider } from './context/GlobalContext.jsx';
 import Header from './components/Header/Header.jsx';
 import FlightManagmentPanel from './components/FlightManagmentPanel/FlightManagmentPanel.jsx';
 
+
 // FUNCTION    : App
 // DESCRIPTION : Main application component, providing global context and layout.
 // PARAMETERS  : None
