@@ -4,7 +4,13 @@
  * FIRST VERSION : 2025-11-25
  * DESCRIPTION   : Styles for the whole App transfered to children components
  */
- 
+
+#root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .bg-panel-primary {
     background-color: #34495e !important;
 }
