@@ -1,0 +1,19 @@
+/* NAME          : src/components/FlightDataPanel/FlightDataPanel.css
+ * PROJECT       : SENG3020 - Flight Data Management System
+ * PROGRAMMER    : Alex Simko
+ * FIRST VERSION : 2025-11-25
+ * DESCRIPTION   : Styles for the Flight Data Panel components
+ */
+ 
+:root {
+    --table-bg: #E8E8E8;
+}
+
+.cell-row-colour td,
+.cell-row-colour th {
+    background-color: var(--table-bg) !important;
+}
+
+.fs-13 {
+    font-size: 13px !important;
+}
