@@ -5,12 +5,22 @@
 // DESCRIPTION   : Individual row component for displaying telemetry data entry
 
 // FUNCTION    : ListEntryItem
-// DESCRIPTION : Renders a single row of telemetry data
+// DESCRIPTION : Renders a single row of telemetry data with selection checkbox
 // PARAMETERS  : data - Object containing telemetry data fields
+//             : isSelected - Boolean indicating if this item is selected
+//             : onSelect - Callback function to handle checkbox changes
 // RETURNS     : JSX.Element - Table row component
-const ListEntryItem = ({ data }) => {
+const ListEntryItem = ({ data, isSelected = false, onSelect }) => {
     return (
         <tr className="fs-13">
+            <td className="text-center">
+                <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={onSelect}
+                    className="form-check-input"
+                />
+            </td>
             <td className="text-center">{data.tailNumber || 'Invalid Entry'}</td>
             <td className="text-center">{data.timestamp || 'Invalid Entry'}</td>
             <td className="text-center">{data.altitude || 'Invalid Entry'}</td>
