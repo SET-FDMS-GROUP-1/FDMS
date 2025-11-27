@@ -23,13 +23,13 @@ const ListEntryItem = ({ data, isSelected = false, onSelect }) => {
             </td>
             <td className="text-center">{data.tailNumber || 'Invalid Entry'}</td>
             <td className="text-center">{data.timestamp || 'Invalid Entry'}</td>
-            <td className="text-center">{data.altitude || 'Invalid Entry'}</td>
-            <td className="text-center">{data.pitch || 'Invalid Entry'}</td>
-            <td className="text-center">{data.bank || 'Invalid Entry'}</td>
-            <td className="text-center">{data.weight || 'Invalid Entry'}</td>
-            <td className="text-center">{data.x || 'Invalid Entry'}</td>
-            <td className="text-center">{data.y || 'Invalid Entry'}</td>
-            <td className="text-center">{data.z || 'Invalid Entry'}</td>
+            <td className="text-center">{data.attitude.altitude || 'Invalid Entry'}</td>
+            <td className="text-center">{data.attitude.pitch || 'Invalid Entry'}</td>
+            <td className="text-center">{data.attitude.bank || 'Invalid Entry'}</td>
+            <td className="text-center">{data.gForce.weight || 'Invalid Entry'}</td>
+            <td className="text-center">{data.gForce.x || 'Invalid Entry'}</td>
+            <td className="text-center">{data.gForce.y || 'Invalid Entry'}</td>
+            <td className="text-center">{data.gForce.z || 'Invalid Entry'}</td>
         </tr>
     );
 };
