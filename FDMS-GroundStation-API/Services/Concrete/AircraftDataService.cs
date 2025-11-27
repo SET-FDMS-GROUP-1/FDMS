@@ -6,7 +6,6 @@
 * DESCRIPTION : Implementation of business logic for managing aircraft data.
 */
 
-using System.Collections;
 using FDMS_GroundStation_API.Data;
 using FDMS_GroundStation_API.Models;
 using FDMS_GroundStation_API.Services.Abstract;
