@@ -7,8 +7,11 @@
 * the GTS.
 */
 
+using FDMS_GroundStation_API.Data;
 using FDMS_GroundStation_API.Models;
 using FDMS_GroundStation_API.Services.Abstract;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace FDMS_GroundStation_API.Services.Concrete {
     /*
@@ -18,49 +21,14 @@ namespace FDMS_GroundStation_API.Services.Concrete {
      */
     public class CommunicationService : ICommunicationService
     {
-        private static CommunicationService instance;
-        private IAircraftDataService database;
         private AbstractConnectionService ui;
         private AbstractConnectionService ats;
 
-        /*
-         *	METHOD : CommunicationService - Constructor
-         *	DESCRIPTION	: Empty constructor that provides no additional functionality. Set
-         *	to private so other modules cannot create CommunicationService instances. 
-         *	PARAMETERS : Nothing
-         *	RETURNS : Nothing
-         */
-        private CommunicationService()
-        {
-        }
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        /*
-         *	METHOD : GetInstance
-         *	DESCRIPTION	: Returns the single instance of CommunicationService if
-         *	it exists. If it doesn't, creates the instance and returns that value.
-         *	PARAMETERS : Nothing
-         *	RETURNS : ICommunicationService - the instance
-         */
-        public ICommunicationService GetInstance()
+        public CommunicationService(IServiceScopeFactory scopeFactory)
         {
-            if (instance == null)
-            {
-                instance = new CommunicationService();
-            }
-            return instance;
-        }
-
-        /*
-         *	METHOD : RegisterDatabaseConnection
-         *	DESCRIPTION	: Registers the given IAircraftDataService as the database
-         *	connection service.
-         *	PARAMETERS :
-         *	    IAircraftDataService databaseConnection : database connection service
-         *	RETURNS : Nothing
-         */
-        public void RegisterDatabaseConnection(IAircraftDataService databaseConnection)
-        {
-            database = databaseConnection;
+            _scopeFactory = scopeFactory;
         }
 
         /*
@@ -89,16 +57,49 @@ namespace FDMS_GroundStation_API.Services.Concrete {
             ats = atsConnection;
         }
 
-        //TODO: write method and method header
-        public Task RecieveAircraftData(Aircraft data)
+        public async Task RecieveAircraftData(FlightDataDTO flightData)
         {
-            throw new NotImplementedException();
+            DateTime currentTime = DateTime.Now;
+            flightData.TimeStamp = currentTime;
+            flightData.TailNumber = "differnt";
+
+            //upload to database
+            Aircraft aircraft = new Aircraft { Id = flightData.TailNumber };
+            GForceData gForceData = new GForceData { CreatedDate = currentTime, AccelX = flightData.AccelX, AccelY = flightData.AccelY,
+                AccelZ = flightData.AccelZ, Weight = (decimal)flightData.Weight, AircraftId = flightData.TailNumber, Aircraft = aircraft};
+            AltitudeData altitudeData = new AltitudeData { CreatedDate = currentTime, Altitude = flightData.Altitude, 
+                Pitch = flightData.Pitch, Bank = flightData.Bank, AircraftId = flightData.TailNumber, Aircraft = aircraft};
+
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<GtsDbContext>();
+
+                var query = context.Aircrafts.AsNoTracking().AsQueryable();
+
+                if (flightData.TailNumber != null)
+                {
+                    query = query.Where(a => a.Id == flightData.TailNumber);
+                }
+
+                Console.WriteLine(await query.FirstOrDefaultAsync());
+
+                //if aircraft is already in database, don't try to add it again
+                /*var existingAircraft = await context.Aircrafts.AsNoTracking().FirstOrDefaultAsync(a => a.Id == aircraft.Id);
+                if (existingAircraft == null)
+                {
+                    await context.Aircrafts.AddAsync(aircraft);
+                }
+                await context.GForceData.AddAsync(gForceData);
+                await context.AltitudeData.AddAsync(altitudeData);
+                await context.SaveChangesAsync();*/
+            }
+            //TODO: ui stuff
         }
 
         //TODO: write method and method header
-        public Task RecieveError(string data)
+        public async Task RecieveError(DataError dataError)
         {
-            throw new NotImplementedException();
+            //await database.UploadErrorData(dataError);
         }
     }
 }
