@@ -37,13 +37,18 @@ namespace FDMS_GroundStation_API.Controllers {
          *	DESCRIPTION	: Handles GET requests at the root endpoint to retrieve aircraft data.
          *	PARAMETERS :
          *      string id - The ID of the aircraft to retrieve.
-         *	RETURNS : IActionResult - A HTTP response containing serialized aircraft data.
+         *	RETURNS : IActionResult - A HTTP response containing serialized Flight data as a DTO.
          */
         [HttpGet("{id?}")]
         public async Task<IActionResult> GetStation(string? id = null) {
             _logger.LogInformation("Aircraft data requested");
             var data = await _aircraftDataService.GetAircraftData(id);
-            return Ok(data);
-        }
+
+            if (data.Any()) {
+                return Ok(data);
+            }
+
+            return NotFound();
+        }   
     }
 }

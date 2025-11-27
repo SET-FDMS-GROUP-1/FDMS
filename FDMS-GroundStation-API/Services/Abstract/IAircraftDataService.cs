@@ -13,6 +13,6 @@ namespace FDMS_GroundStation_API.Services.Abstract {
      * PURPOSE : to define methods for managing aircraft data.
      */
     public interface IAircraftDataService {
-        Task<IEnumerable<Aircraft>> GetAircraftData(string? id = null);
+        Task<IEnumerable<FlightDataDTO>> GetAircraftData(string? id = null);
     }
 }

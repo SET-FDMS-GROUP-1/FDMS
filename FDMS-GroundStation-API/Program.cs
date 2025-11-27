@@ -29,6 +29,7 @@ builder.Services.AddDbContext<GtsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddSingleton<ICommunicationService, CommunicationService>();
 builder.Services.AddTransient<IAircraftDataService, AircraftDataService>();
+builder.Services.AddTransient<IFlightDataDtoService, FlightDataDtoService>();
 builder.Services.AddHostedService<ATSConnectionService>();
 
 var app = builder.Build();
