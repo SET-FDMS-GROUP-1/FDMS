@@ -15,8 +15,8 @@ import "./FlightDataPanel.css";
 // PARAMETERS  : searchResultCount - Number of search results (used in search mode)
 //             : maxHeight - Maximum height for the table container (default: '450px')
 // RETURNS     : JSX.Element - Flight data panel component
-const FlightDataPanel = ({ searchResultCount = 0, maxHeight = '450px' }) => {
-    const { isRealTime, selectedItems, setSelectedItems, telemetryData } = useGlobalContext();
+const FlightDataPanel = ({ maxHeight = '450px' }) => {
+    const { selectedItems, setSelectedItems, telemetryData, searchResult, isSearchMode, setIsSearchMode, setSearchResult, setIsRealTime } = useGlobalContext();
 
     // Check if all items are selected
     const allSelected = telemetryData.length > 0 && selectedItems.size === telemetryData.length;
@@ -46,10 +46,27 @@ const FlightDataPanel = ({ searchResultCount = 0, maxHeight = '450px' }) => {
         }
     };
 
+    // Return to live view
+    const handleReturnToLive = () => {
+        setIsSearchMode(false);
+        setIsRealTime(true);
+        setSearchResult([]);
+    };
+
     return (
         <div className="card border border-5 app-border shadow-sm bg-panel-secondary h-100 d-flex flex-column">
-            <div className="card-header text-center fw-bold fs-4 border-0 bg-panel-secondary pb-0">
-                {isRealTime ? 'Live Telemetry Data' : `Search Results (${searchResultCount} records found)`}
+            <div className="card-header text-center fw-bold fs-4 border-0 bg-panel-secondary pb-0 position-relative d-flex align-items-center justify-content-center" style={{ minHeight: '60px' }}>
+                {isSearchMode && (
+                    <button 
+                        className="btn btn-sm btn-outline-primary position-absolute start-0 ms-3 border-0"
+                        onClick={handleReturnToLive}
+                    >
+                        ← Return to Live View
+                    </button>
+                )}
+                <span>
+                    {isSearchMode ?  `Search Results (${searchResult.length} records found)` : 'Live Telemetry Data'}
+                </span>
             </div>
             <div className="card-body p-3 bg-panel-primary m-3 flex-fill d-flex flex-column overflow-hidden">
                 <div className="flex-fill overflow-auto position-relative cell-row-colour">
@@ -60,7 +77,16 @@ const FlightDataPanel = ({ searchResultCount = 0, maxHeight = '450px' }) => {
                             onSelectAll={handleSelectAll}
                         />
                         <tbody>
-                            {telemetryData.length > 0 ? (
+                            {isSearchMode ? (
+                                searchResult.map((entry, index) => (
+                                    <ListEntryItem 
+                                        key={index}
+                                        data={entry}
+                                        isSelected={selectedItems.has(index)}
+                                        onSelect={() => handleItemSelect(index)}
+                                    />
+                                ))
+                            ) : telemetryData.length > 0 ? (
                                 telemetryData.map((entry, index) => (
                                     <ListEntryItem 
                                         key={index} 

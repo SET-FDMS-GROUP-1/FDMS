@@ -5,23 +5,22 @@
 // DESCRIPTION   : Main panel component for managing flight data with two-column layout
 
 import FlightDataPanel from '../FlightDataPanel/FlightDataPanel.jsx';
+import { SidePanel } from '../SidePanel/SidePanel.jsx';
 
 // FUNCTION    : FlightManagmentPanel
 // DESCRIPTION : Renders a two-column layout with left panel (40%) and right panel (60%) containing FlightDataPanel
 // PARAMETERS  : None
 // RETURNS     : JSX.Element - Flight management panel component
-const FlightManagmentPanel = () => {
+const FlightManagmentPanel = () => {   
     return (
         <div className="container-fluid h-100">
             <div className="row g-3 h-100">
-                <div className="col-12 col-lg-5">
-                    <div className="p-3">
-                        <div>
-                            <h1>Future Search Panel</h1>
-                        </div>
+                <div className="col-4">
+                    <div className="p-3 d-flex justify-content-center">
+                        <SidePanel />
                     </div>
                 </div>
-                <div className="col-12 col-lg-7 h-100">
+                <div className="col-8 h-100">
                     <div className="p-4 h-100">
                         <FlightDataPanel />
                     </div>
