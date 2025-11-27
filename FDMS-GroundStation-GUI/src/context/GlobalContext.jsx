@@ -30,6 +30,8 @@ const GlobalProvider = ({ children }) => {
     const [isRealTime, setIsRealTime] = useState(true);
     const [selectedItems, setSelectedItems] = useState(new Set());
     const [telemetryData, setTelemetryData] = useState([]);
+    const [searchResult, setSearchResult] = useState([]);
+    const [isSearchMode, setIsSearchMode] = useState(false);
 
     return (
         <GlobalContext.Provider value={{ 
@@ -38,7 +40,11 @@ const GlobalProvider = ({ children }) => {
             selectedItems, 
             setSelectedItems,
             telemetryData,
-            setTelemetryData
+            setTelemetryData,
+            searchResult,
+            setSearchResult,
+            isSearchMode,
+            setIsSearchMode
         }}>
             {children}
         </GlobalContext.Provider>
