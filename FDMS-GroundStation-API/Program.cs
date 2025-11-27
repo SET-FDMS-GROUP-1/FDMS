@@ -1,11 +1,12 @@
 /*
  * FILE : Program.cs
  * PROJECT : SENG3020 - Flight Data Management System
- * PROGRAMMER : Nicholas Aguilar
+ * PROGRAMMER : Nicholas Aguilar, Nathan Joannette
  * FIRST VERSION : 2025-11-22
  * DESCRIPTION : Main program file for the Ground terminal station application.
  */
 using FDMS_GroundStation_API.Data;
+using FDMS_GroundStation_API.Hubs;
 using FDMS_GroundStation_API.Services.Abstract;
 using FDMS_GroundStation_API.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -17,11 +18,12 @@ builder.Services.AddControllers().AddNewtonsoftJson(options => {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<GtsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -44,5 +46,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<DataHub>("/datahub");
 
 await app.RunAsync();

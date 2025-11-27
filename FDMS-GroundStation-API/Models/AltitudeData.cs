@@ -23,6 +23,6 @@ namespace FDMS_GroundStation_API.Models {
         [Required]
         [StringLength(15)]
         public required string AircraftId { get; set; }
-        public required Aircraft? Aircraft { get; set; }
+        public Aircraft? Aircraft { get; set; }
     }
 }

@@ -1,5 +1,18 @@
-﻿namespace FDMS_GroundStation_API.Models
+﻿/*
+* FILE : FlightDataDTO.cs
+* PROJECT : SENG3020 - Flight Data Management System
+* PROGRAMMER : Nathan Joannette
+* FIRST VERSION : 2025-11-2
+* DESCRIPTION : Data transfer object for formating data from the ATS to the 
+* database and UI.
+*/
+
+namespace FDMS_GroundStation_API.Models
 {
+    /*
+     * NAME : FlightDataDTO
+     * PURPOSE : Defines all the flight data values needed by the database/UI.
+     */
     public class FlightDataDTO
     {
         public string TailNumber { get; set; }

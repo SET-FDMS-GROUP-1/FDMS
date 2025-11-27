@@ -16,8 +16,6 @@ namespace FDMS_GroundStation_API.Services.Abstract {
      * via methods.
      */
     public interface ICommunicationService {
-        void RegisterUIConnection(AbstractConnectionService uiConnection);
-        void RegisterATSConnection(AbstractConnectionService atsConnection);
         Task RecieveAircraftData(FlightDataDTO flightData);
         Task RecieveError(DataError dataError);
     }

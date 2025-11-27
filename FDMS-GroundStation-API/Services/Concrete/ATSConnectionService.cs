@@ -48,7 +48,6 @@ namespace FDMS_GroundStation_API.Services.Concrete
             listener = new TcpListener(ipAddress, kPort);
 
             _communicationService = communicationService;
-            communicationService.RegisterATSConnection(this);
         }
 
         /*
@@ -56,8 +55,8 @@ namespace FDMS_GroundStation_API.Services.Concrete
          *	DESCRIPTION	: This task is started when the GTS application starts. Starts the
          *	TCPListener and handles any ATS clients as they publish to the listener.
          *	PARAMETERS :
-         *	    CancellationToken cancellationToken : cancellation token for the task
-         *	RETURNS : Task - the ExecuteAsync task
+         *	    CancellationToken cancellationToken : Cancellation token for the task.
+         *	RETURNS : Task - The ExecuteAsync task.
          */
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
@@ -91,9 +90,9 @@ namespace FDMS_GroundStation_API.Services.Concrete
          *	NetworkStream to recieve byte data from the client and sends it for further
          *	processing.
          *	PARAMETERS :
-         *	    TcpClient ats : client this task was started for
-         *	    CancellationToken cancellationToken : cancellation token for the task
-         *	RETURNS : Task - the HandleATSClientAsync task
+         *	    TcpClient ats : Client this task was started for.
+         *	    CancellationToken cancellationToken : Cancellation token for the task.
+         *	RETURNS : Task - The HandleATSClientAsync task.
          */
         private async Task HandleATSClientAsync(TcpClient ats, CancellationToken cancellationToken)
         {
@@ -117,6 +116,7 @@ namespace FDMS_GroundStation_API.Services.Concrete
                         if (CheckChecksum(parsedData.Trailer.Checksum, telemetryData[kAltitudeIndex], telemetryData[kPitchIndex],
                             telemetryData[kBankIndex]))
                         {
+                            //if checksum is valid, continue to process the data
                             FlightDataDTO formattedData = new FlightDataDTO { TailNumber = parsedData.Header.TailNumber,
                                 AccelX = telemetryData[kAccelXIndex], AccelY = telemetryData[kAccelYIndex], AccelZ = telemetryData[kAccelZIndex],
                                 Weight = telemetryData[kWeightIndex], Altitude = telemetryData[kAltitudeIndex], Pitch = telemetryData[kPitchIndex],
@@ -125,6 +125,7 @@ namespace FDMS_GroundStation_API.Services.Concrete
                         }
                         else
                         {
+                            //if checksum is invalid, discard the data and record the error
                             DataError error = new DataError { RawData = data, ErrorMessage = "Invalid checksum"};
                             await _communicationService.RecieveError(error);
                         }
@@ -146,12 +147,28 @@ namespace FDMS_GroundStation_API.Services.Concrete
             }
         }
 
+        /*
+         *	METHOD : CheckChecksum
+         *	DESCRIPTION	: Determines if the checksum from a given packet is valid
+         *	or not.
+         *	PARAMETERS :
+         *	    int checksum : Checksum value recieved from the data packet.
+         *	    double alt : Altitude value recieved from the data packet.
+         *	    double pitch : Pitch value recieved from the data packet.
+         *	    double bank : Bank value recieved from the data packet.
+         *	RETURNS : bool - Whether the checksum is valid or not.
+         */
         private bool CheckChecksum(int checksum, double alt, double pitch, double bank)
         {
             return checksum == (int)(alt + pitch + bank) / 3;
         }
     }
 
+    /*
+     * NAME : AircraftDataJSON
+     * PURPOSE : JSON deserializizing class used to represent the overall structure of
+     * the JSON objects from the ATS.
+     */
     public class AircraftDataJSON
     {
         public Header Header { get; set; }
@@ -159,6 +176,11 @@ namespace FDMS_GroundStation_API.Services.Concrete
         public Trailer Trailer { get; set; }
     }
 
+    /*
+     * NAME : Header
+     * PURPOSE : JSON deserializizing class used to represent the header of the JSON
+     * objects from the ATS.
+     */
     public class Header
     {
         [JsonPropertyName("Aircraft Tail #")]
@@ -167,11 +189,22 @@ namespace FDMS_GroundStation_API.Services.Concrete
         public int PacketSequenceNumber { get; set; }
     }
 
+    /*
+     * NAME : Body
+     * PURPOSE : JSON deserializizing class used to represent the body of the JSON
+     * objects from the ATS.
+     */
     public class Body
     {
         [JsonPropertyName("Aircraft Data")]
         public string AircraftData { get; set; }
     }
+
+    /*
+     * NAME : Trailer
+     * PURPOSE : JSON deserializizing class used to represent the trailer of the JSON
+     * objects from the ATS.
+     */
 
     public class Trailer
     {
