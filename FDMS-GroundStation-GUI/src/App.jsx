@@ -19,7 +19,7 @@ import FlightManagmentPanel from './components/FlightManagmentPanel/FlightManagm
 function App() {
   return (
     <GlobalProvider>
-      <div className="d-flex flex-column h-100">
+      <div className="d-flex flex-column h-100 bg-panel-primary">
         <Header />
         <div className="flex-fill">
           <FlightManagmentPanel />
