@@ -28,9 +28,18 @@ const useGlobalContext = () => {
 // RETURNS     : JSX element wrapping the children with the GlobalContext.Provider
 const GlobalProvider = ({ children }) => {
     const [isRealTime, setIsRealTime] = useState(true);
+    const [selectedItems, setSelectedItems] = useState(new Set());
+    const [telemetryData, setTelemetryData] = useState([]);
 
     return (
-        <GlobalContext.Provider value={{ isRealTime, setIsRealTime }}>
+        <GlobalContext.Provider value={{ 
+            isRealTime, 
+            setIsRealTime, 
+            selectedItems, 
+            setSelectedItems,
+            telemetryData,
+            setTelemetryData
+        }}>
             {children}
         </GlobalContext.Provider>
     );

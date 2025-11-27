@@ -9,6 +9,8 @@ import './App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GlobalProvider } from './context/GlobalContext.jsx';
 import Header from './components/Header/Header.jsx';
+import FlightManagmentPanel from './components/FlightManagmentPanel/FlightManagmentPanel.jsx';
+
 
 // FUNCTION    : App
 // DESCRIPTION : Main application component, providing global context and layout.
@@ -17,8 +19,12 @@ import Header from './components/Header/Header.jsx';
 function App() {
   return (
     <GlobalProvider>
-      <Header />
-      <h1>FDMS Ground Station GUI. In Development...</h1>
+      <div className="d-flex flex-column h-100">
+        <Header />
+        <div className="flex-fill">
+          <FlightManagmentPanel />
+        </div>
+      </div>
     </GlobalProvider>
   )
 }
