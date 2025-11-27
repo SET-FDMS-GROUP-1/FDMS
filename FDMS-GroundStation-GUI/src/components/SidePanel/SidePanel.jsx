@@ -13,10 +13,11 @@ import { exportTelemetryData } from "../../services/FileService.js";
 // PARAMETERS  : None
 // RETURNS     : JSX.Element - Side panel component
 export const SidePanel = () => {
-    const { isSearchMode, selectedItems, telemetryData, searchResult } = useGlobalContext();
+    const { isSearchMode, selectedItems, telemetryData, searchResult, setSearchResult } = useGlobalContext();
 
     const handleExport = async () => {  
         let exportData;
+        // figure out what data to export
         if (isSearchMode) {
             exportData = searchResult.filter((_, index) => selectedItems.has(index));
         } else {
@@ -24,6 +25,8 @@ export const SidePanel = () => {
         }
 
         await exportTelemetryData(exportData, isSearchMode);
+        // Clear search results after export
+        setSearchResult(new Set());
     };
 
     return (
