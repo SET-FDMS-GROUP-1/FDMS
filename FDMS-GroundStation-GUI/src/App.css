@@ -1,0 +1,25 @@
+/* NAME          : src/App.css
+ * PROJECT       : SENG3020 - Flight Data Management System
+ * PROGRAMMER    : Alex Simko
+ * FIRST VERSION : 2025-11-25
+ * DESCRIPTION   : Styles for the whole App transfered to children components
+ */
+
+#root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.bg-panel-primary {
+    background-color: #34495e !important;
+}
+
+.bg-panel-secondary {
+    background-color: #bdc3c7 !important;
+}
+
+.app-border {
+    border-color: #95a5a6 !important;
+}
+

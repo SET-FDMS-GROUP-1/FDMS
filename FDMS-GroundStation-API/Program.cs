@@ -9,6 +9,7 @@ using FDMS_GroundStation_API.Data;
 using FDMS_GroundStation_API.Services.Abstract;
 using FDMS_GroundStation_API.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<GtsDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IAircraftDataService, AircraftDataService>();
+builder.Services.AddHostedService<ATSConnectionService>();
 
 var app = builder.Build();
 
