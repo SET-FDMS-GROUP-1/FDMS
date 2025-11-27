@@ -5,6 +5,7 @@
 * FIRST VERSION : 2025-11-24
 * DESCRIPTION : Implementation of business logic for managing aircraft data.
 */
+
 using FDMS_GroundStation_API.Data;
 using FDMS_GroundStation_API.Models;
 using FDMS_GroundStation_API.Services.Abstract;
@@ -17,6 +18,7 @@ namespace FDMS_GroundStation_API.Services.Concrete {
      */
     public class AircraftDataService : IAircraftDataService {
         private readonly GtsDbContext _context;
+        private readonly IFlightDataDtoService _flightDataDtoService;
         /*
          *	FUNCTION : AircraftDataService -- Constructor
          *	DESCRIPTION	: Constructor that initializes the AircraftDataService class with required services
@@ -24,8 +26,9 @@ namespace FDMS_GroundStation_API.Services.Concrete {
          *      GtsDbContext context - The database context for accessing the SQL database.
          *	RETURNS : Nothing
          */
-        public AircraftDataService(GtsDbContext context) {
+        public AircraftDataService(GtsDbContext context, IFlightDataDtoService flightDataDtoService) {
             _context = context;
+            _flightDataDtoService = flightDataDtoService;
         }
 
         /*
@@ -35,7 +38,8 @@ namespace FDMS_GroundStation_API.Services.Concrete {
          *      int? id - Optional ID to filter aircraft by id.
          *	RETURNS : IEnumerable<Aircraft> - A list of aircraft including associated G-force and Altitude data.
          */
-        public async Task<IEnumerable<Aircraft>> GetAircraftData(string? id = null) {
+        public async Task<IEnumerable<FlightDataDTO>> GetAircraftData(string? id = null) {
+            var result = new List<FlightDataDTO>();
             var query = _context.Aircrafts.AsNoTracking().AsQueryable();
 
             if (id != null) {
@@ -44,8 +48,12 @@ namespace FDMS_GroundStation_API.Services.Concrete {
 
             query = query.Include(a => a.AltitudeData)
                          .Include(a => a.GForceData);
+            var flightData = await query.ToListAsync();
 
-            return await query.ToListAsync();
+            foreach (var dto in flightData.Select(flight => _flightDataDtoService.AircraftDataToDto(flight))) {
+                result.AddRange(dto);
+            }
+            return result;
         }
     }
 }

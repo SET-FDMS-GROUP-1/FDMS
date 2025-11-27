@@ -86,8 +86,8 @@ namespace FDMS_GroundStation_API.Services.Concrete
 
         /*
          *	METHOD : HandleATSClientAsync
-         *	DESCRIPTION	: This task is started when a new ATS client is recieved. Uses a
-         *	NetworkStream to recieve byte data from the client and sends it for further
+         *	DESCRIPTION	: This task is started when a new ATS client is received. Uses a
+         *	NetworkStream to receive byte data from the client and sends it for further
          *	processing.
          *	PARAMETERS :
          *	    TcpClient ats : Client this task was started for.
@@ -152,10 +152,10 @@ namespace FDMS_GroundStation_API.Services.Concrete
          *	DESCRIPTION	: Determines if the checksum from a given packet is valid
          *	or not.
          *	PARAMETERS :
-         *	    int checksum : Checksum value recieved from the data packet.
-         *	    double alt : Altitude value recieved from the data packet.
-         *	    double pitch : Pitch value recieved from the data packet.
-         *	    double bank : Bank value recieved from the data packet.
+         *	    int checksum : Checksum value received from the data packet.
+         *	    double alt : Altitude value received from the data packet.
+         *	    double pitch : Pitch value received from the data packet.
+         *	    double bank : Bank value received from the data packet.
          *	RETURNS : bool - Whether the checksum is valid or not.
          */
         private bool CheckChecksum(int checksum, double alt, double pitch, double bank)
@@ -166,7 +166,7 @@ namespace FDMS_GroundStation_API.Services.Concrete
 
     /*
      * NAME : AircraftDataJSON
-     * PURPOSE : JSON deserializizing class used to represent the overall structure of
+     * PURPOSE : JSON deserializing class used to represent the overall structure of
      * the JSON objects from the ATS.
      */
     public class AircraftDataJSON
@@ -178,7 +178,7 @@ namespace FDMS_GroundStation_API.Services.Concrete
 
     /*
      * NAME : Header
-     * PURPOSE : JSON deserializizing class used to represent the header of the JSON
+     * PURPOSE : JSON deserializing class used to represent the header of the JSON
      * objects from the ATS.
      */
     public class Header
@@ -191,7 +191,7 @@ namespace FDMS_GroundStation_API.Services.Concrete
 
     /*
      * NAME : Body
-     * PURPOSE : JSON deserializizing class used to represent the body of the JSON
+     * PURPOSE : JSON deserializing class used to represent the body of the JSON
      * objects from the ATS.
      */
     public class Body
@@ -202,7 +202,7 @@ namespace FDMS_GroundStation_API.Services.Concrete
 
     /*
      * NAME : Trailer
-     * PURPOSE : JSON deserializizing class used to represent the trailer of the JSON
+     * PURPOSE : JSON deserializing class used to represent the trailer of the JSON
      * objects from the ATS.
      */
 
