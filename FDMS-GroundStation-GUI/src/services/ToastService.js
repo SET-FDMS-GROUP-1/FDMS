@@ -40,6 +40,33 @@ const ToastService = {
             ...options
         });
     },
+
+    // NAME: loading
+    // DESCRIPTION: Show loading toast that persists until dismissed
+    // PARAMETERS: message - The message to display
+    //             options - Additional toast options
+    // RETURNS: toastId - ID of the toast for dismissal
+    loading: (message, options = {}) => {
+        return toast.info(message, {
+            position: "top-center",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: false,
+            closeButton: false,
+            pauseOnHover: true,
+            draggable: false,
+            isLoading: true,
+            ...options
+        });
+    },
+
+    // NAME: dismiss
+    // DESCRIPTION: Dismiss a specific toast by ID
+    // PARAMETERS: toastId - The ID of the toast to dismiss
+    // RETURNS: void
+    dismiss: (toastId) => {
+        toast.dismiss(toastId);
+    },
 };
 
 export default ToastService;
