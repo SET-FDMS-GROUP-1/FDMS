@@ -6,6 +6,7 @@
 
 import { useGlobalContext } from '../../context/GlobalContext';
 import searchFlights from '../../services/FlightSearchService';
+import ToastService from '../../services/ToastService';
 
 // FUNCTION    : SearchCriteriaPanel
 // DESCRIPTION : Renders a search criteria panel for filtering flight data
@@ -29,21 +30,26 @@ const SearchCriteriaPanel = () => {
     const start = startDate && startTime ? `${startDate}T${startTime}` : startDate;
     const end = endDate && endTime ? `${endDate}T${endTime}` : endDate;
 
+    // Show loading toast
+    const toastId = ToastService.loading('Searching Database...');
+
     try {
       const data = await searchFlights(tailNumber, start, end);
       console.log('Search results:', data);
-      setSearchResult(data.data);
+      setSearchResult(data);
       setIsSearchMode(true);
       setIsRealTime(false);
+      ToastService.dismiss(toastId);
     } catch (error) {
       console.error('Failed to search flights:', error);
-      // TODO: Add user-facing error handling
+      ToastService.dismiss(toastId);
+      ToastService.error('Failed to search flights');
     }
   };
 
   return (
     <form className="p-3 w-100 bg-panel-triary" >
-      <div className="mb-3">
+      <div className="mb-0">
         <label htmlFor="tailNumber" className="form-label fw-semibold">
           Tail Number
         </label>
@@ -55,59 +61,9 @@ const SearchCriteriaPanel = () => {
           placeholder="C-GCXC"
         />
       </div>
-
-      <div className="row g-2 mb-3">
-        <div className="col-6">
-          <label htmlFor="startDate" className="form-label fw-semibold">
-            Start Date
-          </label>
-          <input
-            type="date"
-            className="form-control"
-            id="startDate"
-            name="startDate"
-          />
-        </div>
-
-        <div className="col-6">
-          <label htmlFor="startTime" className="form-label fw-semibold">
-            Start Time
-          </label>
-          <input
-            type="time"
-            className="form-control"
-            id="startTime"
-            name="startTime"
-          />
-        </div>
+      <div className="mb-3">
+        <span className="fs-6">* Leave empty to receive all flights</span>
       </div>
-
-      <div className="row g-2 mb-3">
-        <div className="col-6">
-          <label htmlFor="endDate" className="form-label fw-semibold">
-            End Date
-          </label>
-          <input
-            type="date"
-            className="form-control"
-            id="endDate"
-            name="endDate"
-          />
-        </div>
-
-        <div className="col-6">
-          <label htmlFor="endTime" className="form-label1 fw-semibold mb-2">
-            End Time
-          </label>
-          <input
-            type="time"
-            className="form-control"
-            id="endTime"
-            name="endTime"
-          />
-        </div>
-      </div>
-
       <button 
         className="btn btn-primary w-100 fw-semibold" 
         onClick={handleSearch}
