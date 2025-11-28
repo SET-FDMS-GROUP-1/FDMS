@@ -23,7 +23,7 @@ function App() {
     <GlobalProvider>
       <div className="d-flex flex-column h-100 bg-panel-primary">
         <Header />
-        <div className="flex-fill">
+        <div className="flex-fill overflow-hidden d-flex">
           <FlightManagmentPanel />
         </div>
       </div>
