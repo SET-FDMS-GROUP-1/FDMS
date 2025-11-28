@@ -21,15 +21,15 @@ const ListEntryItem = ({ data, isSelected = false, onSelect }) => {
                     className="form-check-input"
                 />
             </td>
-            <td className="text-center">{data.TailNumber || 'Invalid Entry'}</td>
-            <td className="text-center">{data.TimeStamp || 'Invalid Entry'}</td>
-            <td className="text-center">{data.Altitude || 'Invalid Entry'}</td>
-            <td className="text-center">{data.Pitch || 'Invalid Entry'}</td>
-            <td className="text-center">{data.Bank || 'Invalid Entry'}</td>
-            <td className="text-center">{data.Weight || 'Invalid Entry'}</td>
-            <td className="text-center">{data.AccelX || 'Invalid Entry'}</td>
-            <td className="text-center">{data.AccelY || 'Invalid Entry'}</td>
-            <td className="text-center">{data.AccelZ || 'Invalid Entry'}</td>
+            <td className="text-center">{data.tailNumber || 'Invalid Entry'}</td>
+            <td className="text-center">{data.timeStamp || 'Invalid Entry'}</td>
+            <td className="text-center">{data.altitude || 'Invalid Entry'}</td>
+            <td className="text-center">{data.pitch || 'Invalid Entry'}</td>
+            <td className="text-center">{data.bank || 'Invalid Entry'}</td>
+            <td className="text-center">{data.weight || 'Invalid Entry'}</td>
+            <td className="text-center">{data.accelX || 'Invalid Entry'}</td>
+            <td className="text-center">{data.accelY || 'Invalid Entry'}</td>
+            <td className="text-center">{data.accelZ || 'Invalid Entry'}</td>
         </tr>
     );
 };
