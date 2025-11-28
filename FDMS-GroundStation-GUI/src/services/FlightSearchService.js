@@ -12,16 +12,11 @@ import AXIOS_INSTANCE from "./AxiosInstance";
 //               start - Optional start date/time for the search
 //               end - Optional end date/time for the search
 // RETURNS     : Promise - Resolves with the search results
-const searchFlights = async (tailNumber, start, end) => {
+const searchFlights = async (tailNumber) => {
     try {
-        // make sure only valid params get passed
-        const params = {};
-        if (tailNumber) params.tailNumber = tailNumber;
-        if (start) params.start = start;
-        if (end) params.end = end;
-        
         //make the call
-        const response = await AXIOS_INSTANCE.get("/api/telemetry/search", { params });
+        var endpoint = tailNumber ? `/AircraftData/${tailNumber}` : "/AircraftData/"
+        const response = await AXIOS_INSTANCE.get(endpoint);
         return response.data;
     } catch (error) {
         console.error("Error searching flights:", error);
