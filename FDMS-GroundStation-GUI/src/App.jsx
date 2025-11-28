@@ -7,9 +7,11 @@
 
 import './App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 import { GlobalProvider } from './context/GlobalContext.jsx';
 import Header from './components/Header/Header.jsx';
 import FlightManagmentPanel from './components/FlightManagmentPanel/FlightManagmentPanel.jsx';
+import { ToastContainer } from 'react-toastify';
 
 
 // FUNCTION    : App
@@ -25,6 +27,7 @@ function App() {
           <FlightManagmentPanel />
         </div>
       </div>
+      <ToastContainer />
     </GlobalProvider>
   )
 }

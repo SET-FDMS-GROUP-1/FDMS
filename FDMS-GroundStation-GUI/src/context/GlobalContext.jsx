@@ -5,7 +5,8 @@
 // DESCRIPTION   : Global context for managing application-wide state.
 //               : Reference code here: https://readmedium.com/how-to-create-global-context-in-react-f02c9d91270b             
 
-import { useContext, createContext, useState } from 'react';
+import { useContext, createContext, useState, useEffect } from 'react';
+import SignalRConnection from '../services/SignalRSocket.js';
 
 // Create the Global Context
 const GlobalContext = createContext(null);
@@ -32,6 +33,13 @@ const GlobalProvider = ({ children }) => {
     const [telemetryData, setTelemetryData] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
     const [isSearchMode, setIsSearchMode] = useState(false);
+
+    // Listen for new flight data from SignalR and update telemetryData state
+    useEffect(() => {
+        SignalRConnection.on('addNewFlight', (data) => {
+            setTelemetryData((prevData) => [...prevData, data]);
+        });
+    }, [telemetryData]);
 
     return (
         <GlobalContext.Provider value={{ 
