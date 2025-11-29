@@ -1,15 +1,35 @@
-import csv
+# FILE : TelemetryFileReader.py
+# PROJECT : SENG3020 - Flight Data Management System
+# PROGRAMMER : Francis Knowles
+# FIRST VERSION : 2025-11-24
+# DESCRIPTION : File defining the TelemetryFileReader class
+
 from pathlib import Path
 from . import TelemetryData as td
 
+# NAME : TelemetryFileReader
+# PURPOSE : The TelemetryFileReader class reads a telemetry file in the format
+#           specified in the FDMS requirements and generates a TelemetryData
+#           object.
 class TelemetryFileReader:
     line:int
     filepath:str 
 
+    # FUNCTION: init
+    # DESCRIPTION: Constructor to initialize the PacketBuilder class
+    # PARAMETERS: filepath (str) - Filepath of the telemetry file
+    # RETURNS : None
     def __init__(self, filepath: str):
         self.line = 0
         self.filepath = filepath
 
+    # FUNCTION: generate_telemetry_data
+    # DESCRIPTION: Parses a line of a telemetry data file and generates a
+    # PARAMETERS: line (int) - Optional argument to read a particular line
+    #                          from the telemetry file. Otherwise, the line
+    #                          read is designated by the line_idx property.
+    # RETURNS : telemetry_data (TelemetryData) - TelemetryData object containing telemetry
+    #                                            data read from the telemetry file
     def generate_telemetry_data(self, line: int=None) -> td.TelemetryData:
 
         telemetry_data = None
