@@ -1,3 +1,9 @@
+# FILE : TelemetryData.py
+# PROJECT : SENG3020 - Flight Data Management System
+# PROGRAMMER : Francis Knowles
+# FIRST VERSION : 2025-11-24
+# DESCRIPTION : File defining the TelemetryData dataclass
+
 from dataclasses import dataclass
 
 ts_idx = 0
@@ -9,6 +15,9 @@ alt_idx = 5
 pitch_idx = 6
 bank_idx = 7
 
+# NAME : TelemetryData
+# PURPOSE : Dataclass defining the structure of telemetry data parsed
+#           from a telemetry file
 @dataclass
 class TelemetryData:
     tail_number: str

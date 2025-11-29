@@ -1,5 +1,10 @@
+# FILE : main.py
+# PROJECT : SENG3020 - Flight Data Management System
+# PROGRAMMER : Francis Knowles
+# FIRST VERSION : 2025-11-24
+# DESCRIPTION : Code for the entry point for the ATS program
+
 import src.TelemetryFileReader as tfr
-import src.TelemetryData as td
 import src.PacketBuilder as pb
 import src.TelemetryPacketTransmissionSocket as tpts
 import time
@@ -8,10 +13,19 @@ import threading
 from dotenv import load_dotenv
 import os
 
+# Config constants
 RECONNECT_INTERVAL = 5.0
 MESSAGE_INTERVAL = 1.0
 NUM_MESSAGES = 50 # set to -1 to run until end of telemetry file
 
+# FUNCTION: main
+# DESCRIPTION: Main entrypoint for the ATS program. Instantiates TelemetryFileReader,
+#              PacketBuilder, and TelemetryPacketTransmissionSocket objects for each
+#              telemetry file in the telemetry_files list. Spawns threads with logic
+#              for parsing telemetry files, assembling packets, and sending them to a
+#              a listener at the frequency specified in the config constants above.
+# PARAMETERS: None
+# RETURNS : None
 def main():
 
     telemetry_files = [".\\data\\C-FGAX.txt",
@@ -40,13 +54,23 @@ def main():
     for thread in threads:
         thread.join()
 
-def worker_func(file_reader, packet_builder, socket):
+
+# FUNCTION: worker_func
+# DESCRIPTION: Worker function with logic for threads spawned in main(). Includes logic
+#              for parsing telemetry files, assembling packets, and sending them to a
+#              a listener at the frequency specified in the config constants above.
+# PARAMETERS: file_reader (TelemetryFileReader) - TelemetryFileReader object
+#             packet_builder (PacketBuilder) - PacketBuilder object
+#             socket (TelemetryPacketTransmissionSocket) - TelemetryPacketTransmissionSocket object
+# RETURNS : None
+def worker_func(file_reader:tfr.TelemetryFileReader, 
+                packet_builder:pb.PacketBuilder, 
+                socket:tpts.TelemetryPacketTransmissionSocket):
     while True:
         try:
             socket.connect()
             if NUM_MESSAGES > 0:
                 for x in range(NUM_MESSAGES):
-                    # print(f"{packet_builder.aircraft_tail_num}: {packet_builder.packet_sequence_num}")
                     data = file_reader.generate_telemetry_data()
                     packet = packet_builder.build_packet(data)
                     socket.send_packet(packet)
@@ -54,7 +78,6 @@ def worker_func(file_reader, packet_builder, socket):
                 break
             else:
                 while True:
-                    # print(f"{packet_builder.aircraft_tail_num}: {packet_builder.packet_sequence_num}")
                     data = file_reader.generate_telemetry_data()
                     packet = packet_builder.build_packet(data)
                     socket.send_packet(packet)
