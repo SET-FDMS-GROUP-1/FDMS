@@ -1,0 +1,12 @@
+#  NAME          : docker-compose.yml
+#  PROJECT       : SENG3020 - Flight Data Management System
+#  PROGRAMMER    : Alex Simko
+#  FIRST VERSION : 2025-11-28
+#  DESCRIPTION   : docker compose to build and deploy application
+
+services:
+  FDMS-GroundStation-GUI:
+    build: .
+    ports:
+      - "8080:80"
+    restart: unless-stopped
